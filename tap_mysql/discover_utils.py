@@ -136,6 +136,9 @@ def discover_catalog(mysql_conn: MySQLConnection, dbs: str = None, tables: Optio
         )"""
 
     tables_clause = ''
+    if '%' in tables:
+        tables_clause = f" {tables}"
+        tables = None
 
     if tables is not None and tables != '':
         filter_tables_clause = ",".join([f"'{table_name}'" for table_name in tables.split(",")])
